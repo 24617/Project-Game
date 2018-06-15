@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour {
 
-    public static int health;
+    public static int health = 3;
     public int numOfHearts;
 
     public Image[] hearts;

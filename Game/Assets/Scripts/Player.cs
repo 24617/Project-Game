@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public float jumpheight = 12f;
     public bool isgrounded = true;
     public bool isshooting = false;
-    //int gethealth = HealthBar.health;
+    public float PlayerX = 0f;
 
 
     void Start()
@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+        PlayerX = transform.position.x;
 
-        
         //Moving Right
         if (Input.GetKey(KeyCode.D))
         {
