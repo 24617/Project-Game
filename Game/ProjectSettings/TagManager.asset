@@ -13,6 +13,7 @@ TagManager:
   - Moving_Platform
   - Ending
   - Item_Frame
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -22,9 +23,9 @@ TagManager:
   - UI
   - 
   - 
-  - First_Background
-  - Second_Background
-  - Third_Background
+  - 
+  - 
+  - 
   - 
   - 
   - 
