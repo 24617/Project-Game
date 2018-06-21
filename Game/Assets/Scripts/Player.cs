@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public Rigidbody2D rb;
     public AudioSource JumpSound;
+    public AudioSource ShootSound;
 
     public float speedwalk = 0.1f;
     public float jumpheight = 12f;
@@ -136,10 +137,12 @@ public class Player : MonoBehaviour
                 }
                 if ((nextFire == 0) || (nextFire >= 50))
                 {
+
                     isshooting = false;
                 }
                 if (nextFire == 40)
                 {
+                    ShootSound.Play();
                     if (spriteRenderer.flipX == false)
                     {
                         Quaternion spawnpoint = new Quaternion(0, 0, 180, 1);

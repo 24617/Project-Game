@@ -18,6 +18,7 @@ public class Enemy_Script : MonoBehaviour {
     public float PlayerX = 0f;
     public GameObject shot;
     private float nextFire;
+    public AudioSource EnemyShoot;
 
 
 
@@ -75,6 +76,7 @@ public class Enemy_Script : MonoBehaviour {
             }
             if (nextFire == 40)
             {
+                EnemyShoot.Play();
                 if (spriteRenderer.flipX == false)
                 {
                     Quaternion spawnpoint = new Quaternion(0, 0, 180, 1);

@@ -12,12 +12,12 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
 
         transform.Translate(bulletspeed, 0, 0);
 
         timer += Time.deltaTime;
-        if (timer >= 0.5)
+        if (timer >= 1)
         {
             Destroy(gameObject);
         }
