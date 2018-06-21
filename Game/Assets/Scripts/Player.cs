@@ -20,6 +20,12 @@ public class Player : MonoBehaviour
     public float PlayerX = 0f;
     public GameObject shot;
     private float nextFire;
+    public static bool playerHit = false;
+    public bool cantDoStuff = false;
+    public int hitTimer = 0;
+    int getDeath = HealthBar.health;
+
+
 
 
     void Start()
@@ -35,93 +41,115 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        PlayerX = transform.position.x;
-
-        //walk
-        float horizontal = Input.GetAxis("Horizontal");
-        Vector3 direction = new Vector3(horizontal, 0, 0);
-
-        if (direction.magnitude > 1)
-            direction.Normalize();
-
-
-        //Is he shooting?
-        if (isshooting == false)
-        {
-            transform.Translate(direction * speedwalk * Time.deltaTime);
-        } 
-
-        if (horizontal > 0)
-        {
-            spriteRenderer.flipX = true;
-            anim.SetInteger("State", 4);
-        }
-        if (horizontal < 0)
-        {
-            spriteRenderer.flipX = false;
-            anim.SetInteger("State", 4);
-        }
-        if (horizontal == 0)
-        {
-            anim.SetInteger("State", 1);
-        }
-
-
-        //jump
-        if (isshooting == false)
-        {
-            if (isgrounded == true && Input.GetKeyDown(KeyCode.W))
-            {
-
-                {
-                    rb.velocity = new Vector3(0, jumpheight, 0);
-                    JumpSound.Play();
-                    anim.SetInteger("State", 2);
-                }
-            }
-        }
-
         //hit test
-        if (Input.GetKeyDown(KeyCode.V))
+        if (playerHit == true)
         {
+            hitTimer += 1;
+            cantDoStuff = true;
             anim.SetInteger("State", 5);
+
+            if (HealthBar.health >= 1) {
+                if (hitTimer == 25) {
+                    playerHit = false;
+                    cantDoStuff = false;
+                    hitTimer = 0;
+                } 
+            } else
+            {
+                animation ["Player_Death_Animation"].wrapMode = WrapMode.ClampForever;
+
+            }
+
+
         }
 
-
-        //shoot
-        if (Input.GetKeyDown(KeyCode.B) && nextFire == 0)
+        if (cantDoStuff == false)
         {
-            iJustShot  = true;
-            isshooting = true;
-            
+
+            PlayerX = transform.position.x;
+
+            //walk
+            float horizontal = Input.GetAxis("Horizontal");
+            Vector3 direction = new Vector3(horizontal, 0, 0);
+
+            if (direction.magnitude > 1)
+                direction.Normalize();
 
 
-            anim.SetInteger("State", 3);
-
-            
-        }
-
-        if (iJustShot == true) {
-            nextFire += 1;
-            if (nextFire == 100) { 
-                nextFire = 0;
-                iJustShot = false;
-            }
-            if ((nextFire == 0) || (nextFire >= 50))
+            //Is he shooting?
+            if (isshooting == false)
             {
-                isshooting = false;
+                transform.Translate(direction * speedwalk * Time.deltaTime);
             }
-            if (nextFire == 40)
+
+            if (horizontal > 0)
             {
-                if (spriteRenderer.flipX == false)
+                spriteRenderer.flipX = true;
+                anim.SetInteger("State", 4);
+            }
+            if (horizontal < 0)
+            {
+                spriteRenderer.flipX = false;
+                anim.SetInteger("State", 4);
+            }
+            if (horizontal == 0)
+            {
+                anim.SetInteger("State", 1);
+            }
+
+
+            //jump
+            if (isshooting == false)
+            {
+                if (isgrounded == true && Input.GetKeyDown(KeyCode.W))
                 {
-                    Quaternion spawnpoint = new Quaternion(0, 0, 180, 1);
-                    Instantiate(shot, this.transform.position, spawnpoint);
+
+                    {
+                        rb.velocity = new Vector3(0, jumpheight, 0);
+                        JumpSound.Play();
+                        anim.SetInteger("State", 2);
+                    }
                 }
-                if (spriteRenderer.flipX == true)
+            }
+
+
+            //shoot
+            if (Input.GetKeyDown(KeyCode.B) && nextFire == 0)
+            {
+                iJustShot = true;
+                isshooting = true;
+
+
+
+                anim.SetInteger("State", 3);
+
+
+            }
+
+            if (iJustShot == true)
+            {
+                nextFire += 1;
+                if (nextFire == 100)
                 {
-                    Quaternion spawnpoint = new Quaternion(0, 0, 0, 1);
-                    Instantiate(shot, this.transform.position, spawnpoint);
+                    nextFire = 0;
+                    iJustShot = false;
+                }
+                if ((nextFire == 0) || (nextFire >= 50))
+                {
+                    isshooting = false;
+                }
+                if (nextFire == 40)
+                {
+                    if (spriteRenderer.flipX == false)
+                    {
+                        Quaternion spawnpoint = new Quaternion(0, 0, 180, 1);
+                        Instantiate(shot, this.transform.position, spawnpoint);
+                    }
+                    if (spriteRenderer.flipX == true)
+                    {
+                        Quaternion spawnpoint = new Quaternion(0, 0, 0, 1);
+                        Instantiate(shot, this.transform.position, spawnpoint);
+                    }
                 }
             }
         }

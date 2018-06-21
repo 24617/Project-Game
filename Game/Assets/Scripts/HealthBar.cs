@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour {
 
+    Animator anim;
     public static int health = 3;
     public int numOfHearts;
 
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-    
+
+    public void Start()
+    {
+        
+    }
 
     private void Update()
     {
@@ -34,14 +39,11 @@ public class HealthBar : MonoBehaviour {
             }
         }
 
-        if (Input.GetKey(KeyCode.U)) {
-            health -= 1;
+        if (health == 0)
+        {
+           
         }
 
-        if (Input.GetKey(KeyCode.I))
-        {
-            health += 1;
-        }
 
     }
 }

@@ -9,7 +9,7 @@ public class Enemy_Script : MonoBehaviour {
 
     public Transform player;
     int timer = 150;
-    int enemyHealth = 3;
+    public static int enemyHealth = 2;
     Vector2 velocity;
     float speed = 0.5f;
 
@@ -18,6 +18,8 @@ public class Enemy_Script : MonoBehaviour {
     public float PlayerX = 0f;
     public GameObject shot;
     private float nextFire;
+
+
 
 
 

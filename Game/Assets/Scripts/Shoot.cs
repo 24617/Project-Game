@@ -7,6 +7,7 @@ public class Shoot : MonoBehaviour
 
     public float bulletspeed;
     private float timer;
+    int getEnemyHealth = Enemy_Script.EnemyHealth;
 
     // Update is called once per frame
     void Update()
@@ -16,7 +17,7 @@ public class Shoot : MonoBehaviour
         transform.Translate(bulletspeed, 0, 0);
 
         timer += Time.deltaTime;
-        if (timer >= 2)
+        if (timer >= 0.5)
         {
             Destroy(gameObject);
         }
@@ -26,7 +27,7 @@ public class Shoot : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            
             Destroy(gameObject);
         }
 
