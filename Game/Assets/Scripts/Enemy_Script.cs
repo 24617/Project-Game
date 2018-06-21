@@ -107,12 +107,5 @@ public class Enemy_Script : MonoBehaviour {
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "bullet")
-        {
-            AnimatorEnemy.SetInteger("Stage", 3);
-            enemyHealth -= 1;
-        }
-    }
+    
 }

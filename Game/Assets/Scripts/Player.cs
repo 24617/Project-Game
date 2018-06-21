@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
                 } 
             } else
             {
-                animation ["Player_Death_Animation"].wrapMode = WrapMode.ClampForever;
+                anim.SetInteger("State", 10);
 
             }
 
